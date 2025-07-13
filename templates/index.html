@@ -7,21 +7,26 @@
         input[type="text"] { width: 300px; padding: 8px; }
         button { padding: 8px 12px; }
         li { margin: 8px 0; }
+        a.logout { float: right; color: red; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h2>📝 To-Do List</h2>
+    <h2>📝 To-Do List for {{ current_user.username }}</h2>
+    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    
     <form action="/add" method="post">
         <input type="text" name="task" placeholder="Enter a task" required>
         <button type="submit">Add</button>
     </form>
     <ul>
         {% for task in tasks %}
-            <li>{{ task }} 
-                <a href="/delete/{{ loop.index0 }}" style="color: red;">[Delete]</a>
+            <li>
+                {{ task.content }}
+                <a href="/delete/{{ task.id }}" style="color: red;">[Delete]</a>
             </li>
         {% endfor %}
     </ul>
 </body>
 </html>
+
 
